@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Home from './components/home'
+import Cheader from './components/header'
 Vue.config.productionTip = false
-
+Vue.component('c-header', Cheader)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
