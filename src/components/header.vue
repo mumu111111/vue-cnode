@@ -26,9 +26,19 @@
 <script>
   import Row from './row'
   import Col from './col' 
+  import request from '../helper/request.js'
   export default {
     name: 'cHeader',
-    components: {'x-row': Row, 'x-col': Col}
+    components: {'x-row': Row, 'x-col': Col},
+    created(){
+        request({ 
+            method: 'GET',
+            url: '/topics',
+            data: {page: 1, tab: 'ask', limit: 10}
+        }).then(res=>{
+            console.log(res);
+        })
+    }
   }
 </script>
 
