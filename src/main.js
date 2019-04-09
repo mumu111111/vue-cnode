@@ -3,10 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Cheader from './components/header'
+
 Vue.config.productionTip = false
+
+import Cheader from './components/header'
 Vue.component('c-header', Cheader)
-/* eslint-disable no-new */
+
+import Cmain from './components/main'
+Vue.component('c-main', Cmain)
+
 new Vue({
   el: '#app',
   router,

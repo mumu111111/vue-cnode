@@ -34,7 +34,7 @@
         request({ 
             method: 'GET',
             url: '/topics',
-            data: {page: 1, tab: 'ask', limit: 10}
+            data: {page: 1,  limit: 30}
         }).then(res=>{
             console.log(res);
         })

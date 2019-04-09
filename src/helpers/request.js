@@ -2,7 +2,7 @@ import axios from 'axios'
 
 axios.defaults.baseURL = "https://cnodejs.org/api/v1";
 axios.defaults.headers.post['Content-type'] = "application/json"
-axios.defaults.withCredentials= true;
+// axios.defaults.withCredentials= true; //form-data形式
 
 
 export default function request({ method = "GET", url, data={} }){
@@ -14,6 +14,7 @@ export default function request({ method = "GET", url, data={} }){
             option.data = data;
         }
         axios(option).then(res =>{
+            console.log("返回内容"+res)
             if(res.status === 200){
                 resolve(res.data);
             }else{

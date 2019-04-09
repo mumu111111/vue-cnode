@@ -1,6 +1,7 @@
 <template>
-  <div class="index">
+  <div class="home">
       <c-header></c-header>
+      <c-main></c-main>
   </div>
 </template>
 
