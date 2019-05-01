@@ -2,8 +2,36 @@
   <div class="c-main">
     <x-row>
         <x-col span=0 :pc="{span:3,offset:0}"></x-col>
-        <x-col span=24 :pc="{span:12,offset:0}">
-            <div class="main-content">main</div>
+         <x-col span=24 :pc="{span:14,offset:0}">
+                <div class="main-content">
+                    <div class="main-content-navbar">
+                        <ul>
+                            <li class="active">全部</li>
+                            <li>精华</li>
+                            <li>分享</li>
+                            <li>问答</li>
+                            <li>招聘</li>
+                        </ul>
+                    </div>
+                    <div v-for="topic in topics" :key="topic.id" class="topic">
+                        <img :src="topic.author.avatar_url" :title="topic.author.loginname">
+                        <div class="topic-info">
+                            <div class="topic-info-inner">
+                                <p class="topic-info-inner-tab">置顶</p>
+                                <p class="topic-info-inner-title" :title="topic.title">
+                                    <router-link to="">{{topic.title}}</router-link>
+                                </p>
+                            </div>
+                            <p class="topic-info-count"><span>{{topic.reply_count}}/</span><span>{{topic.visit_count}}</span></p>
+                        </div>
+                        <p class="topic-reply">
+                            <router-link to=""><span>最新回复：</span>4小时前</router-link>
+                        </p>
+                    </div>
+                    <div class="pagination-wrapper">
+                        <x-pagination v-model="currentPage"></x-pagination>
+                    </div>
+                </div>
         </x-col>
         <x-col span=0 :pc="{span:6,offset:0}">
             <div class="sider-bar">sider</div>
@@ -14,24 +42,192 @@
 </template>
 
 <script>
-    import Row from './row'
-    import Col from './col'
+    import Row from './row.vue'
+    import Col from './col.vue'
+    import Pagination from './pagination/pagination.vue'
+    import { mapActions } from 'vuex'
     export default {
         name: 'cMain',
-        components: {'x-row': Row, 'x-col': Col}
+        data() {
+            return {
+                topics: null,
+                currentPage: 1
+            }
+        },
+        created() {
+            this.getTopics({page: this.currentPage, limit: 20}).then(res => {
+                this.topics = res.data
+            }).catch(err => {console.log(err);})
+        },
+        watch: {
+            currentPage(newValue) {
+                this.getTopics({page: newValue, limit: 20}).then(res => {
+                    this.topics = res.data
+                }).catch(err => {console.log(err);})
+            }
+        },
+        methods: {
+            ...mapActions(['getTopics','getTopicById']) 
+        },
+        components: {
+            'x-row': Row, 
+            'x-col': Col, 
+            'x-pagination': Pagination
+        }
+        
     }
 </script>
 
 <style lang="scss" scoped>
+    $nodegreen:#80bd01;
+    $error:#F56C6C;
+    $warning:#E6A03C;
+    $tips:#919196;
     .c-main{
-        .main-content{
-            border: 1px solid red;
+        margin: 20px 0;
+        border-radius: 4px;
+        .main-content {
             margin: 0 10px;
+            &-navbar {
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                >ul {
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    background: #eee;
+                    color: $nodegreen;
+                    font-size: 14px;
+                    padding: 10px;
+                    >li {
+                        margin-right: 20px;
+                        padding: 2px 6px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        &:hover {
+                            color: #9e78c0;
+                        }
+                        &.active {
+                            background: $nodegreen;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+            .topic {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border-bottom: 1px solid #eee;
+                padding: 5px 0;
+                background: #fff;
+                &:hover {
+                    background: #eee;
+                }
+                >img {
+                    width: 30px;
+                    height: 30px;
+                    margin: 10px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                &-info {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    max-width: 70%;
+                    &-inner {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        width: 100%;
+                        order: 1;
+                        &-tab {
+                            font-size: 12px;
+                            background: $nodegreen;
+                            color: #fff;
+                            padding: 2px 5px;
+                            border-radius: 3px;
+                            margin: 0 5px 0 0;
+                            flex-shrink: 0;
+                        }
+                        &-title {
+                            font-size: 16px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            cursor: pointer;
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                    &-count {
+                        order: 2;
+                        width: 70px;
+                        margin-left: 40px;
+                        text-align: start;
+                        flex-shrink: 0;
+                        >span:first-child {
+                            font-size: 14px;
+                            color: #9e78c0;
+                        }
+                        >span:last-child {
+                            font-size: 12px;
+                            color: #999;
+                        }
+                    }
+                }
+                &-reply {
+                    margin-left: auto;
+                    flex-shrink: 0;
+                    font-size: 12px;
+                    padding-right: 10px;
+                    cursor: pointer;
+                    span {
+                        display: none;
+                    }
+                }
+            }
+            .pagination-wrapper {
+                background: #fff;
+                padding: 10px;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
         }
         .sider-bar{
             display: none;
         }
         @media (min-width: 993px){
+            .main-content {
+                margin: 0 10px;
+                .topic {
+                    >img {
+                        margin: 10px 0 10px 10px;
+                    }
+                    &-info {
+                        flex-wrap: nowrap;
+                        &-inner {
+                            width: 90%;
+                            order: 2;
+                        }
+                        &-count {
+                            order: 1;
+                            margin-left: 0px;
+                            text-align: center;
+                        }
+                    }
+                    &-reply {
+                        span {
+                            display: inline;
+                        }
+                    }
+                }
+            }
             .sider-bar{
                 display: block;
                 border: 1px solid green;

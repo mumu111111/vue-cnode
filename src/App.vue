@@ -18,7 +18,7 @@ export default {
   color: #2c3e50;
 }
 body{
-  background: #eee;
+  background: #ddd;
 }
 * {
   margin: 0;
