@@ -15,6 +15,9 @@ Vue.component('c-header', Cheader)
 import Cmain from './components/main'
 Vue.component('c-main', Cmain)
 
+import Csider from './components/sider'
+Vue.component('c-sider', Csider)
+
 import CFooter from './components/footer'
 Vue.component('c-footer', CFooter)
 new Vue({

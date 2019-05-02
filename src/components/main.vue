@@ -34,10 +34,15 @@
                 </div>
         </x-col>
         <x-col span=0 :pc="{span:6,offset:0}">
-            <div class="sider-bar">sider</div>
+            <div class="sider-bar">
+                <c-sider></c-sider>
+            </div>
         </x-col>
         <x-col span=0 :pc="{span:3,offset:0}"></x-col>
     </x-row>
+    <div class="mask" v-if="isLoading">
+        <div class="loading"></div>
+    </div>
   </div>
 </template>
 
@@ -54,10 +59,12 @@ export default {
       query: {
         page: 1,
         tab: "all"
-      }
+      },
+      isLoading: false
     };
   },
   created() {
+    this.isLoading = true 
     let link = this.$route.query; //查询参数
     console.log(link);
     if (link) {
@@ -65,6 +72,7 @@ export default {
         .then(res => {
           this.topics = res.data;
           this.$router.push({ path: "/", query: { ...{ link } } });
+          this.isLoading = false
         })
         .catch(err => {
           console.log(err);
@@ -74,6 +82,7 @@ export default {
   watch: {
     query: {
       handler(val) {
+        console.log("handler");
         this.getTopics({ page: val.page, tab: val.tab, limit: 20 })
           .then(res => {
             this.topics = res.data;
@@ -85,6 +94,7 @@ export default {
           .catch(err => {
             console.log(err);
           });
+        query.tab = this.$router.query.tab;
       },
       deep: true,
       immediate: true
