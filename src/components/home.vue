@@ -2,6 +2,7 @@
   <div class="home">
       <c-header></c-header>
       <c-main></c-main>
+      <c-footer></c-footer>
   </div>
 </template>
 

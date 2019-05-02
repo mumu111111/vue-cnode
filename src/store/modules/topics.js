@@ -4,7 +4,13 @@ const state = {
     topics: []
 };
 
-const getters = {};
+const getters = {
+    getDetailById: (state)=>{
+        return (id) => {
+            return state.topics.find(topic => topic.id)
+        }
+    }
+};
 
 const mutations = {
     setTopics(state, playload) {

@@ -30,15 +30,6 @@ import Col from "./col";
 export default {
   name: "cHeader",
   components: { "x-row": Row, "x-col": Col }
-  // created(){
-  //     request({
-  //         method: 'GET',
-  //         url: '/topics',
-  //         data: {page: 1,  limit: 30}
-  //     }).then(res=>{
-  //         console.log(res);
-  //     })
-  // }
 };
 </script>
 
