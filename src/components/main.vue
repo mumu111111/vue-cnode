@@ -19,7 +19,7 @@
                             <div class="topic-info-inner">
                                 <p class="topic-info-inner-tab">置顶</p>
                                 <p class="topic-info-inner-title" :title="topic.title">
-                                    <router-link to="">{{topic.title}}</router-link>
+                                    <router-link to="`./topic.${topic.id}`">{{topic.title}}</router-link>
                                 </p>
                             </div>
                             <p class="topic-info-count"><span>{{topic.reply_count}}/</span><span>{{topic.visit_count}}</span></p>

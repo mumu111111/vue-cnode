@@ -15,6 +15,11 @@ const router= new Router({
       path: '/about',
       component: ()=>
         import('@/components/about.vue')
+    },
+    {
+      path: '/topic/:topicId',
+      component: ()=>
+        import('@/components/topic.vue')
     }
   ]
 })
