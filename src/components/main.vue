@@ -1,16 +1,16 @@
 <template>
   <div class="c-main">
     <x-row>
-        <x-col span=0 :pc="{span:3,offset:0}"></x-col>
-         <x-col span=24 :pc="{span:14,offset:0}">
+        <x-col span=0 :pc="{span:2,offset:0}"></x-col>
+         <x-col span=24 :pc="{span:15,offset:0}">
                 <div class="main-content">
                     <div class="main-content-navbar">
                         <ul>
-                            <li class="active">全部</li>
-                            <li>精华</li>
-                            <li>分享</li>
-                            <li>问答</li>
-                            <li>招聘</li>
+                            <li :class="{active:query.tab==='all'}" @click="query.tab='all'">全部</li>
+                            <li :class="{active:query.tab==='good'}" @click="query.tab='good'">精华</li>
+                            <li :class="{active:query.tab==='share'}" @click="query.tab='share'">分享</li>
+                            <li :class="{active:query.tab==='ask'}" @click="query.tab='ask'">问答</li>
+                            <li :class="{active:query.tab==='job'}" @click="query.tab='job'">招聘</li>
                         </ul>
                     </div>
                     <div v-for="topic in topics" :key="topic.id" class="topic">
@@ -29,7 +29,7 @@
                         </p>
                     </div>
                     <div class="pagination-wrapper">
-                        <x-pagination v-model="currentPage"></x-pagination>
+                        <x-pagination v-model="query.page"></x-pagination>
                     </div>
                 </div>
         </x-col>
@@ -51,7 +51,10 @@
         data() {
             return {
                 topics: null,
-                currentPage: 1
+                query: {
+                    page: 1,
+                    tab: 'all'
+                }
             }
         },
         created() {
@@ -60,10 +63,14 @@
             }).catch(err => {console.log(err);})
         },
         watch: {
-            currentPage(newValue) {
-                this.getTopics({page: newValue, limit: 20}).then(res => {
-                    this.topics = res.data
-                }).catch(err => {console.log(err);})
+            query: {
+                handler(val) {
+                    this.getTopics({page: val.page,tab: val.tab, limit: 20}).then(res =>{
+                        this.topics = res.data
+                    }).catch(err => {console.log(err);})
+                },
+                deep: true,
+                immediate: true
             }
         },
         methods: {
@@ -149,6 +156,15 @@
                             font-size: 12px;
                             background: $nodegreen;
                             color: #fff;
+                            padding: 2px 5px;
+                            border-radius: 3px;
+                            margin: 0 5px 0 0;
+                            flex-shrink: 0;
+                        }
+                        &-tab-default {
+                            font-size: 12px;
+                            background: #ddd;
+                            color: #888;
                             padding: 2px 5px;
                             border-radius: 3px;
                             margin: 0 5px 0 0;

@@ -1,10 +1,10 @@
 <template>
   <div class="c-header">
     <x-row>
-            <x-col span=0 :pc="{span:3,offset:0}"></x-col>
+            <x-col span=0 :pc="{span:2,offset:0}"></x-col>
             <x-col span=24 :pc="{span:18,offset:0}">
                 <div class="header-inner">
-                    <router-link to="">
+                    <router-link to="/">
                         <div><img src="../../static/logo.svg"></div>
                     </router-link>
                     <ul class="navbar">
@@ -18,7 +18,7 @@
                     </ul>
                 </div>
             </x-col>
-            <x-col span=0 :pc="{span:3,offset:0}"></x-col>
+            <x-col span=0 :pc="{span:2,offset:0}"></x-col>
     </x-row>
   </div>
 </template>

@@ -18,8 +18,8 @@ export default {
             display: block;
             background: #fff;
             >p {
-                margin-left: 12.5%;
-                padding: 40px 10px;
+                margin-left: (2 / 24)*100%;
+                padding: 40px 20px;
                 font-size: 14px;
                 color: #999;
             }
