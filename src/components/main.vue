@@ -64,37 +64,26 @@ export default {
     };
   },
   created() {
-    this.isLoading = true 
-    let link = this.$route.query; //查询参数
-    console.log(link);
-    if (link) {
-      this.getTopics({ ...{ link }, limit: 20 })
-        .then(res => {
-          this.topics = res.data;
-          this.$router.push({ path: "/", query: { ...{ link } } });
-          this.isLoading = false
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+    this.isLoading = true;
+    this.getTopics({ page: 1, limit: 20 })
+      .then(res => {
+        this.topics = res.data;
+        this.isLoading = false;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   watch: {
     query: {
       handler(val) {
-        console.log("handler");
         this.getTopics({ page: val.page, tab: val.tab, limit: 20 })
           .then(res => {
             this.topics = res.data;
-            this.$router.push({
-              path: "/",
-              query: { tab: val.tab, page: val.page }
-            }); //加入查询参数
           })
           .catch(err => {
             console.log(err);
           });
-        query.tab = this.$router.query.tab;
       },
       deep: true,
       immediate: true
@@ -122,6 +111,34 @@ $tips: #919196;
 .c-main {
   margin: 20px 0;
   border-radius: 4px;
+  .mask {
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    @keyframes scaleout {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+    > .loading {
+      width: 40px;
+      height: 40px;
+      background: $nodegreen;
+      border-radius: 50%;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin: -20px 0 0 -20px;
+      animation: scaleout 1.5s infinite ease-in-out;
+    }
+  }
   .main-content {
     margin: 0 10px;
     &-navbar {
@@ -275,7 +292,6 @@ $tips: #919196;
     }
     .sider-bar {
       display: block;
-      border: 1px solid green;
     }
   }
 }

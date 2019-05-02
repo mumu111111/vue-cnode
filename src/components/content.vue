@@ -1,24 +1,23 @@
 <template>
-    <div class="c-topic-detail">
+    <div class="c-content">
         <x-row>
             <x-col span=0 :pc="{span:2,offset:0}"></x-col>
-            <x-col span=24 :pc="{span:15,offset:0}">
+            <x-col span=24 :pc="{span:18,offset:0}">
                 <div class="topic-inner">
-                    <div class="topic-title">{{topic.title}}</div>
+                    <div class="topic-title">关于</div>
                     <div class="topic-info">
-                        <span>发布于 1 小时前</span>
-                        <span>作者 {{author.loginname}}</span>
-                        <span>{{topic.visit_count}} 次浏览</span>
-                        <span>来自 {{topic.tab|tab}}</span>
+                        
                     </div>
-                    <div class="markdown-body" v-html="topic.content"></div>
+                    <div class="markdown-body">
+                        <p>CNode 社区为国内最大最具影响力的 Node.js 开源技术社区，致力于 Node.js 的技术研究。</p>
+                        <p>CNode 社区由一批热爱 Node.js 技术的工程师发起，目前已经吸引了互联网各个公司的专业技术人员加入，我们非常欢迎更多对 Node.js 感兴趣的朋友。</p>
+                        <p>CNode 的 SLA 保证是，一个9，即 90.000000%。</p>
+                        <p>社区目前由 @alsotang 在维护，有问题请联系：https://github.com/alsotang</p>
+                        <p>请关注我们的官方微博：http://weibo.com/cnodejs</p>
+                    </div>
                 </div>
             </x-col>
-            <x-col span=0 :pc="{span:5,offset:0}">
-                <div class="sider-bar">
-                    <c-sider></c-sider>
-                </div>
-            </x-col>
+           
             <x-col span=0 :pc="{span:2,offset:0}"></x-col>
         </x-row>
     </div>
@@ -69,13 +68,15 @@ export default {
 </script>
 <style>
     @import url('../assets/markdown.css');
-     .c-topic-detail {
-        padding: 20px 0;
+     .c-content {
+        margin: 20px;
+        padding: 20px 20px;
+        width: 100%;
         border-radius: 4px;
     }
     .topic-inner {
-        margin: 0 10px;
-        padding-top: 10px;
+        margin: 15px 10px;
+        padding:20px 0  40px 0;
         background: #fff;
         border-radius: 4px;
     }
@@ -114,7 +115,7 @@ export default {
         display: none;
     }
     @media (min-width:993px) {
-        .c-topic-detail {
+        .c-content {
             margin: 0 10px;
         }
         .sider-bar {
