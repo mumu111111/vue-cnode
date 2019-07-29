@@ -25,7 +25,7 @@
 <script>
 import Row from './row'
 import Col from './col'
-import {mapActions, mapGetters} from 'vuex'
+// import {mapActions, mapGetters} from 'vuex'
 export default {
     name: 'cDetail',
     components: {

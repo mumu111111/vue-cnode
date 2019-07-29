@@ -24,3 +24,5 @@ export default function request({ method = "GET", url, data={} }){
         })
     })
 }
+
+
