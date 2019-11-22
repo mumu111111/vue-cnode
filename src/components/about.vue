@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import Content from './content.vue'
+import Content from "./content.vue";
 export default {
-        name: 'content',
-        components: {'c-content': Content}
-}
+  name: "About",
+  components: { "c-content": Content }
+};
 </script>
 
 <style lang="scss" scoped>
